@@ -1,16 +1,17 @@
-const Input = ({label, type = 'text', state, setState}) => {
+const Input = ({label, type, state, setState}) => {
 
   return (
-    <div class="form-floating mt-2">
+    <div className="form-floating mt-2">
       <input
         type={type}
-        class="form-control"
+        className="form-control"
         id="floatingInput"
         placeholder={label}
         value={state}
         onChange={e => setState(e.target.value)}
+        required
       />
-      <label for="floatingInput">{label}</label>
+      <label htmlFor="floatingInput">{label}</label>
     </div>
   );
 };
