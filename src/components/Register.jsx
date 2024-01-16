@@ -1,7 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../ui";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUserStart } from "../slice/auth";
+import {
+  signUserFailure,
+  signUserStart,
+  signUserSuccess,
+} from "../slice/auth";
+import AuthServise from "../service/auth";
+import {ValidationError} from "./";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -9,12 +16,30 @@ const Register = () => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.auth);
+  const { isLoading, loggedIn } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
 
-  const registerHandler = (e) => {
-    e.preventDefault()
-    dispatch(registerUserStart())
+  const registerHandler = async (e) => {
+    e.preventDefault();
+    dispatch(signUserStart());
+
+    const user = { username: name, email, password };
+
+    try {
+      const response = await AuthServise.userRegister(user)
+
+      dispatch(signUserSuccess(response.user));
+      navigate('/')
+    } catch (error) {
+      dispatch(signUserFailure(error.response.data.errors));
+    }
   };
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/")
+    }
+  }, [loggedIn])
 
   return (
     <div className="container w-25 bg-info p-5">
@@ -40,7 +65,10 @@ const Register = () => {
             state={password}
             setState={setPassword}
           />
-          <button className="btn btn-primary w-50 mt-5" disabled={isLoading}>{isLoading ? 'loading...' : 'Sign up'}</button>
+          <ValidationError />
+          <button className="btn btn-primary w-50 mt-4" disabled={isLoading}>
+            {isLoading ? "loading..." : "Sign up"}
+          </button>
         </form>
       </div>
     </div>

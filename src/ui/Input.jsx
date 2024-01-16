@@ -1,5 +1,4 @@
-const Input = ({label, type, state, setState}) => {
-
+const Input = ({ label, type, state, setState }) => {
   return (
     <div className="form-floating mt-2">
       <input
@@ -8,8 +7,7 @@ const Input = ({label, type, state, setState}) => {
         id="floatingInput"
         placeholder={label}
         value={state}
-        onChange={e => setState(e.target.value)}
-        required
+        onChange={(e) => setState(e.target.value)}
       />
       <label htmlFor="floatingInput">{label}</label>
     </div>

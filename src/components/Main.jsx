@@ -1,8 +1,13 @@
+import { useSelector } from "react-redux"
+
 const Main = () => {
+
+  const {user} = useSelector(state => state.auth)
+
 
   return (
     <div>
-      Main
+      Main { user !== null && user.username}
     </div>
   )
 }
