@@ -1,28 +1,42 @@
-import { Routes, Route } from "react-router-dom"
-import {Main, Login, Register, Navbar} from './components'
-import AuthServise from "./service/auth"
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { signUserSuccess } from "./slice/auth"
-import { getItem } from "./helpers/persistance-storage"
+import { Routes, Route } from "react-router-dom";
+import { Main, Login, Register, Navbar } from "./components";
+import AuthServise from "./service/auth";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { signUserSuccess } from "./slice/auth";
+import { getItem } from "./helpers/persistance-storage";
+import ArticleService from "./service/article";
+import { getArticlesFailure, getArticlesStart, getArticlesSuccess } from "./slice/article";
 
 const App = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const getUser = async () => {
     try {
-      const response = await AuthServise.getUser()
-      dispatch(signUserSuccess(response.user))
+      const response = await AuthServise.getUser();
+      dispatch(signUserSuccess(response.user));
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  const getArticles = async () => {
+    dispatch(getArticlesStart())
+    try {
+      const res = await ArticleService.getArticle();
+      dispatch(getArticlesSuccess(res.articles))
+    } catch (error) {
+      console.log(error);
+      dispatch(getArticlesFailure(error))
+    }
+  };
 
   useEffect(() => {
     const token = getItem("token");
-    if (token && token !== 'undefined') {
+    if (token && token !== "undefined") {
       getUser();
     }
-  }, [])
+    getArticles();
+  }, []);
 
   return (
     <div>
@@ -33,7 +47,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
       </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

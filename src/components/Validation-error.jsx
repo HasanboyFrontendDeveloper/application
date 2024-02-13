@@ -14,7 +14,7 @@ const ValidationError = () => {
 
   return (
     error !== null &&
-      <div class="alert alert-danger p-1 m-2 " role="alert">
+      <div className="alert alert-danger p-1 m-2 " role="alert">
         {errorMsg()[0]}
       </div>
   );
