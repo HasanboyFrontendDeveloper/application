@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../slice/auth";
 import { removeItem } from "../helpers/persistance-storage";
+import logo from '../img/Hasanboy logo.png'
 
 const Navbar = () => {
   const { loggedIn, user } = useSelector((state) => state.auth);
@@ -15,9 +16,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="d-flex flex-column flex-md-row align-items-center mb-4 border-bottom py-3 container">
+    <div className="d-flex flex-column flex-md-row align-items-center mb-4 border-bottom py-3">
       <Link to={"/"}>
-        <img src="./Hasanboy logo.png" alt="logo" width={300} />
+        <img src={logo} alt="logo" width={300} />
       </Link>
 
       <nav className="d-inline-flex mt-2 mt-md-0 ms-md-auto fs-4">

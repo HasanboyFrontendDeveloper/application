@@ -5,6 +5,7 @@ import { signUserFailure, signUserStart, signUserSuccess } from "../slice/auth";
 import AuthServise from "../service/auth";
 import { ValidationError } from "./";
 import { useNavigate } from "react-router-dom";
+import icon from '../img/Hasanboy icon.png'
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -38,10 +39,10 @@ const Login = () => {
   }, [loggedIn])
 
   return (
-    <div className="container w-25 bg-info p-5">
+    <div className="w-25 bg-info p-5">
       <div className="text-center">
         <form>
-          <img src="./Hasanboy icon.png" alt="Icon" width={90} />
+          <img src={icon} alt="Icon" width={90} />
           <h3>Sing in</h3>
           <Input
             label={"Email"}

@@ -9,6 +9,7 @@ import {
 import AuthServise from "../service/auth";
 import {ValidationError} from "./";
 import { useNavigate } from "react-router-dom";
+import icon from '../img/Hasanboy icon.png'
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -42,10 +43,10 @@ const Register = () => {
   }, [loggedIn])
 
   return (
-    <div className="container w-25 bg-info p-5">
+    <div className="w-25 bg-info p-5">
       <div className="text-center">
         <form onSubmit={registerHandler}>
-          <img src="./Hasanboy icon.png" alt="Icon" width={90} />
+          <img src={icon} alt="Icon" width={90} />
           <h3>Sing up</h3>
           <Input
             label={"Username"}
