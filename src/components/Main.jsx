@@ -1,11 +1,34 @@
-import { useSelector } from "react-redux";
-import {Loader} from "../ui";
+import { useDispatch, useSelector } from "react-redux";
+import { Loader } from "../ui";
 import { useNavigate } from "react-router-dom";
+import {
+  getArticlesFailure,
+  getArticlesStart,
+  getArticlesSuccess,
+} from "../slice/article";
+import ArticleService from "../service/article";
+import { useEffect } from "react";
 
 const Main = () => {
   const { articles, isLoading } = useSelector((state) => state.article);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const getArticles = async () => {
+    dispatch(getArticlesStart());
+    try {
+      const res = await ArticleService.getArticle();
+      dispatch(getArticlesSuccess(res.articles));
+    } catch (error) {
+      console.log(error);
+      dispatch(getArticlesFailure(error));
+    }
+  };
+
+  useEffect(() => {
+    getArticles();
+  }, []);
 
   return (
     <>
@@ -26,7 +49,6 @@ const Main = () => {
                   preserveAspectRatio="xMidYMid slice"
                   focusable="false"
                 >
-                  <title>Placeholder</title>
                   <rect width="100%" height="100%" fill="#55595c"></rect>
                 </svg>
                 <div className="card-body">

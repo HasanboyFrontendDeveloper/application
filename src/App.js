@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Main, Login, Register, Navbar, ArticleDetail } from "./components";
+import { Main, Login, Register, Navbar, ArticleDetail, CreateArticle } from "./components";
 import AuthServise from "./service/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -23,23 +23,12 @@ const App = () => {
     }
   };
 
-  const getArticles = async () => {
-    dispatch(getArticlesStart());
-    try {
-      const res = await ArticleService.getArticle();
-      dispatch(getArticlesSuccess(res.articles));
-    } catch (error) {
-      console.log(error);
-      dispatch(getArticlesFailure(error));
-    }
-  };
 
   useEffect(() => {
     const token = getItem("token");
     if (token && token !== "undefined") {
       getUser();
     }
-    getArticles();
   }, []);
 
   return (
@@ -50,6 +39,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/article/:slug" element={<ArticleDetail />} />
+          <Route path="/create-article" element={<CreateArticle />} />
         </Routes>
       </div>
   );

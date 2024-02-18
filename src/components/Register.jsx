@@ -43,7 +43,7 @@ const Register = () => {
   }, [loggedIn])
 
   return (
-    <div className="w-25 bg-info p-5">
+    <div className="container w-25 bg-info p-5">
       <div className="text-center">
         <form onSubmit={registerHandler}>
           <img src={icon} alt="Icon" width={90} />

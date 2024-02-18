@@ -39,7 +39,7 @@ const Login = () => {
   }, [loggedIn])
 
   return (
-    <div className="w-25 bg-info p-5">
+    <div className="container w-25 bg-info p-5">
       <div className="text-center">
         <form>
           <img src={icon} alt="Icon" width={90} />

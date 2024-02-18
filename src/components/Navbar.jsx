@@ -25,6 +25,12 @@ const Navbar = () => {
         {loggedIn ? (
           <>
             <h3>{user.username}</h3>
+            <Link
+              to={"/create-article"}
+              className="mx-2 link-body-emphasis text-decoration-none"
+            >
+              Create
+            </Link>
             <button
               onClick={logoutHandler}
               className="btn btn-outline-danger mx-3"
